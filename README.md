@@ -10,7 +10,7 @@ AIAP
 ├── src/                  (Source code directory)
 │   ├── pipe.py           (Main Python script)
 │   ├── prep.py           (Helper functions)      
-│   ├── config.json       (Configuration settings)
+│   ├── config.py         (Configuration settings)
 ├── README.md             (Project documentation)
 ├── eda.ipynb             (Jupyter notebook)
 ├── requirements.txt      (Python dependencies)
