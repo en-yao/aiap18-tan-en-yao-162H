@@ -1,5 +1,7 @@
 #!/bin/bash
 
-# Run pipe.py using Python
+# Run query.py to download data
 python src/query.py
+
+# Run pipe.py using Python
 python src/pipe.py
