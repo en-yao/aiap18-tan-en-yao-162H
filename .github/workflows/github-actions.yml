@@ -17,3 +17,5 @@ jobs:
         run: |
           echo "Reminder to add AISG-AIAP as a collaborator in your repository"
           echo "Once your submission is complete, fill up the form provided in the Assessment 2 document"
+      - name: Cleanup calls.db
+        run: rm data/calls.db
