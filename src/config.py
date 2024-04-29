@@ -1,4 +1,4 @@
-filepath_to_db = "./data/calls.db"
+filepath_to_db = "../data/calls.db"
 test_split = 0.2
 n_jobs = -1
 cv = 5

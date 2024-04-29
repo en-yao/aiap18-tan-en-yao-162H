@@ -15,8 +15,6 @@ AIAP
 ├── eda.ipynb             (Jupyter notebook)
 ├── requirements.txt      (Python dependencies)
 ├── run.sh                (Shell script)
-├── data/                 (Dataset directory)
-│   ├── calls.db          (Dataset)
 ```
 
 #### Instruction for executing the pipeline and modifying parameters
