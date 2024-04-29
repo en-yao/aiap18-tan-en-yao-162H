@@ -11,6 +11,7 @@ AIAP
 │   ├── pipe.py           (Main Python script)
 │   ├── prep.py           (Helper functions)      
 │   ├── config.py         (Configuration settings)
+│   ├── query.py          (Dataset query)
 ├── README.md             (Project documentation)
 ├── eda.ipynb             (Jupyter notebook)
 ├── requirements.txt      (Python dependencies)
