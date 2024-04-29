@@ -69,5 +69,5 @@ In the context of scam calls, recall takes precedence over precision as the aim 
 
 With this in mind, the Support Vector Machine is the preferred model as it has the highest recall score of 0.7 for the Scam class out of the 3 models. While Random Forest had the lowest recall score of 0.63.
 
-#### Other considerations for deploying the models developed
+### Other considerations for deploying the models developed
 No other considerations
