@@ -22,7 +22,7 @@ AIAP
 #### Instruction for executing the pipeline and modifying parameters
 Double click on the the bash script (run.sh) to run it.
 
-Go to *config.py* to modify parameters. Processing data can be modified under `numerical_pipeline` and `categorical_pipeline`. Algorithms and parameters can be modified under `classifier` and `parameters` respectively.
+Go to *config.py* to modify parameters. Pipieline processes can be modified under `numerical_pipeline` and `categorical_pipeline`. Algorithms and parameters can be modified under `classifier` and `parameters` respectively.
 
 #### Description of flow of the pipeline
 Data is loaded and processed using steps from the exploratory data analysis and includes removing duplicates, imputing missing values and category consolidation.
@@ -53,13 +53,13 @@ A mix of categorical and numerical features in the data requires that the pipeli
 #### Explanation of your choice of models 
 The explanatory data analysis shows that the classes for *Scam* and *Not Scam* are not linearly separable. The following models can be used to solve this type of non-linear classification.
 
-**Support Vector Machines**
+*Support Vector Machines*
 This classifier typically uses linear support vectors to separate classes in the best possible way. However, for cases where classes are inseparable by linear vectors, the classifier uses kernel trick to transform the input space to a higher dimensional space such that the classes can easily be separated by linear vectors.
 
-**Decision Tree Classifier**
+*Decision Tree Classifier*
 This classifier uses the features in the dataset to form a complex decision boundary in the form of a flowchart. This approach is useful in cases where the decision boundary is not as simple as a straight line.
 
-**Random Forest**
+*Random Forest*
 This classifier is much like the Decision Tree Classifier where features in the dataset form complex decision boundaries. However it uses randomness to generate several other trees and aggregate the results from across the different trees to make a final classification. This step helps to increase the accuracy of predicting out of sample data.
 
 #### Evaluation of the models developed
@@ -67,7 +67,7 @@ Accuracy, precision and recall were used to evaluate model performance. Accuracy
 
 In the context of scam calls, recall takes precedence over precision as the aim of the model is to accurately identify as many scam calls as possible. Failure to identify a scam call may potentially result in undesirable consequences such as financial loss.
 
-With this in mind, the Support Vector Machine is the preferred model as it has the highest recall for the Scam class out of the 3 models.
+With this in mind, the Support Vector Machine is the preferred model as it has the highest recall score of 0.7 for the Scam class out of the 3 models. While Random Forest had the lowest recall score of 0.63.
 
 #### Other considerations for deploying the models developed
 No other considerations
