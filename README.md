@@ -47,18 +47,15 @@ To modify parameters, go to *src/config.py*. In the file there are model trainin
 `clean()` processes the input data in the following steps:
 1. Convert object columns to numeric
 2. Convert 'date' column to datetime
-3. Clean and standardize categorical columns
+3. Clean and standardize categorical columns with the goal of merging several categories into broader groups
 4. Convert negative values to positive for the column 'Max Wind Speed'<br>
 This is based on the assumption that negative values represent opposite wind direction
 5. Remove duplicate rows
-6. Impute missing values with the median <br>
-Missing values in a continuous numerical dataset can be imputed with either the mean or the median. The median is often preferred over the mean for imputing missing values in datasets because it is more robust to outliers and skewed distributions. If there are extreme values in the dataset, the mean can be pulled in their direction, leading to a skewed imputation value, however the median, as the middle value of a sorted dataset, is not influenced by outliers. It represents the central tendency without being affected by extreme values.
-
-7. Bin numeric features (elaboration in Step 3)
-8. Feature engineering (elaboration in Step 3)
+6. Impute missing values with the median. Missing values in a continuous numerical dataset can be imputed with either the mean or the median. The median is often preferred over the mean for imputing missing values in datasets because it is more robust to outliers and skewed distributions. If there are extreme values in the dataset, the mean can be pulled in their direction, leading to a skewed imputation value, however the median, as the middle value of a sorted dataset, is not influenced by outliers. It represents the central tendency without being affected by extreme values. Data visualization for numerical features in weather.db and air_quality.db shows numerous outliers are present, hence to avoid skewed imputations, missing values are imputed with the median.
+7. Bin numeric features (to be elaborated in Step 3: Feature Engineering)
+8. Feature engineering (to be elaborated in Step 3: Feature Engineering)
 9. Convert target feature to numeric
-10. Remove outliers that may be due to instrument error <br>
-Most of the features except "Wet Bulb Temperature (deg F)" have outliers that can be naturally occurring. Wet Bulb Temperature values typically range between about 0°F and 100°F. A value of -60 could be the result of a measurement or sensor error. The outlier values that fall outside the typical Wet Bulb Temperature range between about 0°F and 100°F should be excluded from the dataset
+10. Remove outliers that may be due to instrument error. Most of the features except "Wet Bulb Temperature (deg F)" have outliers that can be naturally occurring. Wet Bulb Temperature values typically range between about 0°F and 100°F. A value of -60 could be the result of a measurement or sensor error. The outlier values that fall outside the typical Wet Bulb Temperature range between about 0°F and 100°F should be excluded from the dataset
 
 <br> **Step 3: Feature engineering** <br>
 Feature engineering is part of `clean()` that is mentioned in Step 2. Some of the features are derived from binning and others are derived from domain knowledge. Binning might simplify non-linear relationships between the variable and the target. The following are binned features:
@@ -101,7 +98,7 @@ The Gradient Boosting classifier uses a boosting framework to correct the errors
 <br> **Step 5: Categorical Variable Encoding** <br>
 `create_pipeline()` combines a classifier and pipelines for numerical and categorical features using `ColumnTransformer()`. Pipelines for categorical features include `categorical_pipeline_ordinal` and `categorical_pipeline_onehot` as configured in config.py. As the names suggest, `categorical_pipeline_ordinal` is configured with `OrdinalEncoder()` and `categorical_pipeline_onehot` is configured with `OneHotEncoder()`.
 
-During data processing, `LabelEncoder()` is used to encode the categorical data in the target variable.
+During data preprocessing in earlier steps, `LabelEncoder()` is used to encode the categorical data in the target variable.
 
 `OneHotEncoder()` converts categorical variables into a series of binary columns. Each category is represented by a column with a 1 or 0 indicating the presence or absence of that category. For a categorical variable with n unique values, one-hot encoding creates n binary columns.
 
@@ -123,12 +120,12 @@ Recall - the ratio of correctly predicted positive observations to the all obser
 
 F1 Score - The F1 Score is the harmonic mean of precision and recall. It provides a single metric that balances the trade-off between precision and recall, especially useful when you need to balance both metrics. It is particularly useful in cases of imbalanced datasets where you want to ensure that both false positives and false negatives are minimized.
 
-ROC AUC - AUC-ROC measures the performance of a classification model at various threshold settings. It is typically used for binary classifications. For multiclass problems where the target variable has more than two categories such as "Low", "Medium", "High", `OneVsRestClassifier()` will be required for evaluating the ROC AUC curve for each category. Additionally, `multi_class='ovr'` will be passed to `roc_auc_score()`
+ROC AUC - AUC-ROC measures the performance of a classification model at various threshold settings. It is typically used for binary classifications. For multiclass problems where the target variable has more than two categories such as "Low", "Medium", "High", `OneVsRestClassifier()` is used for evaluating the ROC AUC curve for each category. Additionally, `multi_class='ovr'` will be passed to `roc_auc_score()`. The ROC AUC curve is saved in the file`chart.png` in the *src* folder
 
 ### Overview of key findings from the EDA 
-- Data cleaning is necessary to remove duplicate rows, impute missing values and combine redundant categories for some categorical features
-- There seems to be slight imbalance in the target variable.
-- There is a significant number of outliers across several numerical features, but only the outliers from "Wet Bulb Temperature (deg F)" will need to be removed due to suspected instrument error
+- Data cleaning is necessary to remove duplicate rows, impute missing values and merge categories into broader groups for some categorical features
+- There is slight imbalance in the target variable.
+- There is a significant number of outliers across several numerical features, but only the outliers from "Wet Bulb Temperature (deg F)" are removed as they are outside the normal instrument measuring range between about 0°F and 100°F.
 
 ### Describe how features in the dataset are processed
 
@@ -136,7 +133,7 @@ ROC AUC - AUC-ROC measures the performance of a classification model at various 
 |----------------------------|---------------------------------------------------------------------------------------------------|
 | Convert column dtype       | Convert object columns to numeric to enable mathematical calculations                             |
 | Convert column to datetime | Convert date to datetime to enable timeseries analysis                                            |
-| Clean categorical columns  | Combine redundant categories into a single category to avoid misinterpretating of data            |
+| Clean categorical columns  | Merge categories into broader groups to help simplify analysis                                    |
 | Convert negative values    | Convert negative values to positive for the column 'Max Wind Speed'                               |
 | Removing duplicate rows    | Find and remove duplicated values in features                                                     |
 | Impute Missing Values      | Find and replace missing values in features with median to preserve data integrity                |
